@@ -34,11 +34,13 @@ struct KitchenSinkView: View {
       } label: {
         Text("Bordered")
       }
-
+      .buttonStyle(.bordered)
+      
       Button {
       } label: {
         Text("Borderless")
       }
+      .buttonStyle(.borderless)
     } header: {
       Text("Bordered Buttons")
     } footer: {
@@ -46,6 +48,7 @@ struct KitchenSinkView: View {
         Label("Apply Tint", systemImage: "paintbrush")
       }
     }
+    .tint(applyTint ? .purple : .primary)
   }
 
   private var customButtonsView: some View {
@@ -58,6 +61,11 @@ struct KitchenSinkView: View {
       Button {
       } label: {
         Text("Custom Gradient Button")
+      }
+      
+      Button {
+      } label: {
+        Label("Edit", systemImage: "pencil")
       }
     } header: {
       Text("Custom Buttons")

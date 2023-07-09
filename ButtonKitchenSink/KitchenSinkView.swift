@@ -147,25 +147,30 @@ struct KitchenSinkView: View {
         } label: {
           Text("Mini")
         }
+        .controlSize(.mini)
 
         Button {
         } label: {
           Text("Small")
         }
-
+        .controlSize(.small)
+        
         Button {
         } label: {
           Text("Regular")
         }
+        .controlSize(.regular)
 
         Button {
         } label: {
           Text("Large")
         }
+        .controlSize(.large)
       }
     } header: {
       Text("Button Sizes")
     }
+    .buttonStyle(.bordered)
   }
 
   private var menuButtonsView: some View {

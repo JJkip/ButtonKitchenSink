@@ -121,20 +121,23 @@ struct KitchenSinkView: View {
         } label: {
           Text("Rounded")
         }
-
         Button {
         } label: {
           Text("Custom Radius")
         }
+        .buttonBorderShape(.roundedRectangle(radius: 12))
 
         Button {
         } label: {
           Text("Capsule")
         }
+        .buttonBorderShape(.capsule)
       }
     } header: {
       Text("Button Shapes")
     }
+    .buttonBorderShape(.roundedRectangle)
+    .buttonStyle(.bordered)
   }
 
   private var buttonSizesView: some View {

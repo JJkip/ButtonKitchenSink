@@ -78,12 +78,32 @@ struct KitchenSinkView: View {
 
   private var buttonRolesView: some View {
     Section {
-      Button {
+      Button(role: .destructive) {
       } label: {
         Text("Destructive")
       }
+      .swipeActions {
+        Button(role: .destructive) {
+          actionTaken = "Remove"
+        } label: {
+          Label("Remove", systemImage: "trash")
+        }
+        
+        Button(role: .cancel){
+          actionTaken = "Add"
+        } label: {
+          Label("Add", systemImage: "plus")
+        }
+        
+        Button {
+          actionTaken = "Share"
+        } label: {
+          Label("Add", systemImage: "square.and.arrow.up")
+        }
+        .tint(.purple)
+      }
 
-      Button {
+      Button(role: .cancel) {
       } label: {
         Text("Cancel")
       }

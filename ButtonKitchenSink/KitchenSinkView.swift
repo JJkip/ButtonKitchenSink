@@ -57,22 +57,31 @@ struct KitchenSinkView: View {
       } label: {
         Text("Gradient Button")
       }
+      .buttonStyle(.gradient)
+      .disabled(isDisabled)
 
       Button {
       } label: {
         Text("Custom Gradient Button")
       }
+      .buttonStyle(GradientStyle(colors: [.red, .pink, .purple]))
+      .disabled(isDisabled)
       
       Button {
       } label: {
-        Label("Edit", systemImage: "pencil")
+        Label("Edit", systemImage: "paintbrush")
+          .padding(.trailing, 8.0)
       }
+      .buttonStyle(.bordered)
+      .disabled(isDisabled)
+      
     } header: {
       Text("Custom Buttons")
     } footer: {
       Toggle(isOn: $isDisabled) {
         Label("Disable Buttons", systemImage: "checkmark.circle.fill")
       }
+      .tint(.purple)
     }
   }
 

@@ -194,6 +194,7 @@ struct KitchenSinkView: View {
             }
           }
         }
+        .menuStyle(.customMenu)
       }
     } header: {
       Text("Menu")

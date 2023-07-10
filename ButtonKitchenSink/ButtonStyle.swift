@@ -16,7 +16,7 @@ struct GradientStyle: ButtonStyle {
   }
   
   init(
-    colors: [Color] = [.pink.opacity(0.6), .purple.opacity(0.6), .purple]
+    colors: [Color] = [.pink.opacity(0.8), .purple.opacity(0.6), .purple]
   ) {
     self.colors = colors
   }

@@ -69,7 +69,7 @@ struct KitchenSinkView: View {
       
       Button {
       } label: {
-        Label("Edit", systemImage: "paintbrush")
+        Label("Edit", systemImage: "pen")
           .padding(.trailing, 8.0)
       }
       .buttonStyle(.bordered)

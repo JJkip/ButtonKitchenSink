@@ -18,7 +18,7 @@ struct KitchenSinkView: View {
       buttonSizesView
       menuButtonsView
     }
-    .navigationTitle("Button Kitchen Sink")
+    .navigationTitle("Buttons Designs")
     .navigationBarTitleDisplayMode(.inline)
   }
 
@@ -41,6 +41,40 @@ struct KitchenSinkView: View {
         Text("Borderless")
       }
       .buttonStyle(.borderless)
+      HStack {
+        Button {
+        } label: {
+          Text("Custom border")
+            .foregroundColor(.purple)
+            .font(.headline)
+            .padding()
+            .border(Color.purple, width: 2)
+        }
+        Button {
+        } label: {
+          Text("Custom border")
+            .foregroundColor(.purple)
+            .font(.headline)
+            .padding()
+//            .border(Color.purple, width: 2)
+            .background(
+              RoundedRectangle(cornerRadius: 40, style: .continuous)
+                .stroke(.purple, lineWidth: 2)
+            )
+        }
+        
+      }
+      Button {
+      } label: {
+        Text("Custom Design")
+          .foregroundColor(.white)
+          .font(.headline)
+          .padding()
+          .background(Color.purple)
+          .foregroundColor(Color.white)
+          .padding(6)
+          .border(Color.purple, width: 4)
+      }
     } header: {
       Text("Bordered Buttons")
     } footer: {
@@ -69,7 +103,7 @@ struct KitchenSinkView: View {
       
       Button {
       } label: {
-        Label("Edit", systemImage: "pensil")
+        Label("Edit", systemImage: "paintbrush")
           .padding(.trailing, 8.0)
       }
       .buttonStyle(.bordered)

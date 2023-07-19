@@ -75,6 +75,14 @@ struct KitchenSinkView: View {
           .padding(6)
           .border(Color.purple, width: 4)
       }
+      Button {
+      } label: {
+        Text("Shadow Button")
+          .foregroundColor(Color.purple)
+          .padding()
+          .border(.purple, width: 4)
+          .shadow(color: .purple, radius: 5, x: 20, y: 20)
+      }
     } header: {
       Text("Bordered Buttons")
     } footer: {

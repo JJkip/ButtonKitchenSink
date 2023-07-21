@@ -2,12 +2,88 @@
 
 import SwiftUI
 
+struct Neumorphic: ViewModifier {
+    var bgColor: Color
+    @Binding var isPressed: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .padding(20)
+            .background(
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .shadow(color: .white, radius: self.isPressed ? 7: 10, x: self.isPressed ? -5: -15, y: self.isPressed ? -5: -15)
+                        .shadow(color: .black, radius: self.isPressed ? 7: 10, x: self.isPressed ? 5: 15, y: self.isPressed ? 5: 15)
+                        .blendMode(.overlay)
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(bgColor)
+                }
+            )
+            .scaleEffect(self.isPressed ? 0.95: 1)
+            .foregroundColor(.primary)
+//            .animation(.spring())
+    }
+}
+
+struct NeumorphicButtonStyle: ButtonStyle {
+    var bgColor: Color
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .padding(20)
+            .background(
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .shadow(color: .white, radius: configuration.isPressed ? 7: 10, x: configuration.isPressed ? -5: -15, y: configuration.isPressed ? -5: -15)
+                        .shadow(color: .black, radius: configuration.isPressed ? 7: 10, x: configuration.isPressed ? 5: 15, y: configuration.isPressed ? 5: 15)
+                        .blendMode(.overlay)
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(bgColor)
+                }
+        )
+            .scaleEffect(configuration.isPressed ? 0.95: 1)
+            .foregroundColor(.primary)
+            .animation(.spring())
+    }
+}
+
+extension Color {
+    static let neuBackground = Color(hex: "f0f0f3")
+    static let dropShadow = Color(hex: "aeaec0").opacity(0.4)
+    static let dropLight = Color(hex: "ffffff")
+}
+
+extension Color {
+    init(hex: String) {
+        let scanner = Scanner(string: hex)
+        scanner.currentIndex = scanner.string.index(after: scanner.currentIndex)
+        var rgbValue: UInt64 = 0
+        scanner.scanHexInt64(&rgbValue)
+
+        let r = (rgbValue & 0xff0000) >> 16
+        let g = (rgbValue & 0xff00) >> 8
+        let b = rgbValue & 0xff
+
+        self.init(red: Double(r) / 0xff, green: Double(g) / 0xff, blue: Double(b) / 0xff)
+    }
+}
+
+extension View {
+    func neumorphic(isPressed: Binding<Bool>, bgColor: Color) -> some View {
+        self.modifier(Neumorphic(bgColor: bgColor, isPressed: isPressed))
+    }
+}
+
 struct KitchenSinkView: View {
   @State private var isDisabled = false
   @State private var applyTint = false
   @State private var actionTaken = ""
   @State private var menuSelection: String?
   private let menuOptions = ["English", "Spanish", "French", "German"]
+  let offWhiteColor = Color(red: 236/255, green: 234/255, blue: 235/255)
+  let shadowColor = Color(red: 197/255, green: 197/255, blue: 197/255)
+  
+  @State private var isPressed: Bool = false
 
   var body: some View {
     List {
@@ -101,6 +177,7 @@ struct KitchenSinkView: View {
           .border(.purple, width: 4)
       }
       
+      
     } header: {
       Text("Bordered Buttons")
     } footer: {
@@ -113,6 +190,23 @@ struct KitchenSinkView: View {
 
   private var customButtonsView: some View {
     Section {
+      Button(action: {
+        self.isPressed.toggle()
+      }, label: {
+          VStack {
+              Text("Neumorphic Button")
+          }.neumorphic(isPressed: $isPressed, bgColor: .neuBackground)
+      }).frame(maxWidth: .infinity,
+               maxHeight: .infinity)
+          .background(Color.neuBackground)
+          .edgesIgnoringSafeArea(.all)
+      Button("Neumorphic", action: {
+
+      }).buttonStyle(NeumorphicButtonStyle(bgColor: .neuBackground))
+        .frame(maxWidth: .infinity,
+                 maxHeight: .infinity)
+        .background(Color.neuBackground)
+        .edgesIgnoringSafeArea(.all)
       Button {
       } label: {
         Text("Gradient Button")

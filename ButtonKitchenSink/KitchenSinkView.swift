@@ -5,6 +5,7 @@ import SwiftUI
 struct Neumorphic: ViewModifier {
     var bgColor: Color
     @Binding var isPressed: Bool
+    @State private var animationAmount = 1.0
 
     func body(content: Content) -> some View {
         content
@@ -21,12 +22,17 @@ struct Neumorphic: ViewModifier {
             )
             .scaleEffect(self.isPressed ? 0.95: 1)
             .foregroundColor(.primary)
-//            .animation(.spring())
+            .animation(
+              .easeInOut(duration: 1)
+              .repeatForever(autoreverses: false),
+              value: animationAmount
+         )
     }
 }
 
 struct NeumorphicButtonStyle: ButtonStyle {
     var bgColor: Color
+    @State private var animationAmount = 1.0
 
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
@@ -43,7 +49,11 @@ struct NeumorphicButtonStyle: ButtonStyle {
         )
             .scaleEffect(configuration.isPressed ? 0.95: 1)
             .foregroundColor(.primary)
-            .animation(.spring())
+            .animation(
+              .easeInOut(duration: 1)
+              .repeatForever(autoreverses: false),
+              value: animationAmount
+         )
     }
 }
 
